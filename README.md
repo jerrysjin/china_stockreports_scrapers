@@ -4,7 +4,13 @@ Simple easy-to-use scrapers for crawling stock reports from China Shanghai and S
 
 简易股票公司报告爬虫，用于爬取指定上市公司公布的报告
 
-#### 基本用法
+### 基本用法
+
+Python 版本
+
+```
+Python >= 3.5
+```
 
 ``` python
 # 爬取上交所报告
@@ -33,7 +39,7 @@ end_date = '2020-09-08'
 
 在默认情况下，爬取的报告会保存到 `downloads/` 目录下。
 
-#### 规范化文件名
+### 规范化文件名
 
 爬取的文件名没有统一的格式，可以使用 `rename_report_filenames.py` 来统一文件名。统一的格式为
 
@@ -53,11 +59,11 @@ Abstract - 摘要
 Suppl - 补充材料
 ```
 
-#### 生成文件清单
+### 生成文件清单
 
 使用 `generate_check_list.py` 来生成下载的文件清单，并保存到 csv 文件。
 
-#### 感谢声明
+### 感谢声明
 
 本代码借鉴了
 
