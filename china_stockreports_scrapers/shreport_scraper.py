@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import re
 import grequests
@@ -57,11 +57,11 @@ class SHReportScraper(object):
                     for result in results:
                         try:
                             url = 'http://www.sse.com.cn' + result['URL']
-                            urls.append(url)
                             pdfname = result['BULLETIN_YEAR'] + '-' + result['TITLE']
                             if not pdfname.lower().endswith('.pdf'):
                                 pdfname = pdfname + '.pdf'
                             filenames.append(pdfname)
+                            urls.append(url)
                         except:
                             print(result)
                             pass
@@ -90,13 +90,17 @@ class SHReportScraper(object):
         print(' - start downloading pdf reports', flush = True)
         tasks = [grequests.request('GET', url = url, headers = headers, cookies = self.cookies, timeout = 10) for url in urls]
         results = grequests.map(tasks)
+        results_dict = {}
+        for res in results:
+            if res:
+                results_dict[res.url] = res
         
-        for result, pdfname, url in zip(results, filenames, urls):
+        for pdfname, url in zip(filenames, urls):
             try:
                 pdfpath = path.joinpath(pdfname)
                 
                 with open(pdfpath, 'wb') as f:
-                    f.write(result.content)
+                    f.write(results_dict[url].content)
                     print('  - downloaded {}'.format(pdfname), flush = True)
             
             except Exception as e:

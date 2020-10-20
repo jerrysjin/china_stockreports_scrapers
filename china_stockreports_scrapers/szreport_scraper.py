@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 
 import re
 import grequests
@@ -62,11 +62,11 @@ class SZReportScraper(object):
             page_no += 1
             
             for item in res['data']:
-                urls.append(file_url + item['attachPath'])
                 pdfname = item['title']
                 if not pdfname.lower().endswith('.pdf'):
                     pdfname = pdfname + '.pdf'
                 filenames.append(pdfname)
+                urls.append(file_url + item['attachPath'])
         
         return urls, filenames
     
